@@ -1,5 +1,6 @@
 from utils.generator import Generator
 import numpy as np
+import random
 from faker import Faker
 
 class productGenerator(Generator):
@@ -38,6 +39,7 @@ class productGenerator(Generator):
             record['product_id'] = random_product_id[i]
             record['name'] = self.fake.word() + ' ' + self.fake.word()
             record['price'] = self.fake.random_int(min=20, max=1000)
-            record['category'] = np.random.choice(seed, p=[0.25, 0.25, 0.25, 0.25])
-            record['quantity'] = self.fake.random_int(min=1, max=100)
+            record['category'] = random.choice(seed)
+            record['quantity'] = self.fake.random_int(min=50, max=1000)
             data.append(record)
+        return data

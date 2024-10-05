@@ -5,8 +5,7 @@ from faker import Faker
 class clientGenerator(Generator):
     ''''''
     def __init__(self, num_records: int) -> None:
-        self.__schema = {
-                        'client_id',
+        self.__schema = {'client_id',
                         'name',
                         'age',
                         'gender',
@@ -33,6 +32,7 @@ class clientGenerator(Generator):
         ''''''
         data = []
         random_client_id = self.generate_client_id_seeds(self.__num_records)
+        print('entrou aqui')
         
         for i in range(self.__num_records):
             record = {}
@@ -44,5 +44,6 @@ class clientGenerator(Generator):
             record['email'] = self.fake.email()
             record['phone_number'] = self.fake.phone_number()
             data.append(record)
+        return data
 
     
