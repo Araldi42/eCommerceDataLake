@@ -1,5 +1,5 @@
 from utils.generator import Generator
-import numpy as np
+import random
 from faker import Faker
 
 class clientGenerator(Generator):
@@ -32,14 +32,13 @@ class clientGenerator(Generator):
         ''''''
         data = []
         random_client_id = self.generate_client_id_seeds(self.__num_records)
-        print('entrou aqui')
         
         for i in range(self.__num_records):
             record = {}
             record['client_id'] = random_client_id[i]
             record['name'] = self.fake.name()
             record['age'] = self.fake.random_int(min=18, max=70)
-            record['gender'] = np.random.choice(['M', 'F'], p=[0.5, 0.5])
+            record['gender'] = random.choice(['M', 'F'])
             record['address'] = self.fake.address()
             record['email'] = self.fake.email()
             record['phone_number'] = self.fake.phone_number()

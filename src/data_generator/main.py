@@ -13,7 +13,7 @@ def main():
                                            [client['client_id'] for client in client_data],
                                            [product['product_id'] for product in product_data])
     transaction_data = transaction_gen.generate()
-    print(transaction_data)
+    print(client_data)
 
 if __name__ == '__main__':
     main()

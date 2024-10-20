@@ -3,7 +3,6 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from utils.generator import Generator
 from datetime import datetime, timedelta
-import numpy as np
 import random
 from faker import Faker
 
