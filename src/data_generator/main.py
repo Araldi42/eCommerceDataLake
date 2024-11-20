@@ -1,20 +1,39 @@
+from fastapi import FastAPI
 from transaction_generator import transactionGenerator
 from client_generator import clientGenerator
 from product_generator import productGenerator
 
-def main():
-    num_records = 1000
+app = FastAPI()
+
+@app.get("/clients")
+def generate_clients(num_records: int):
+    client_gen = clientGenerator(num_records)
+    client_data = client_gen.generate()
+    return client_data
+
+@app.get("/products")
+def generate_products(num_records: int):
+    product_gen = productGenerator(num_records)
+    product_data = product_gen.generate()
+    return product_data
+
+@app.get("/transactions")
+def generate_transactions(num_records: int):
+    # Generate clients and products first
     client_gen = clientGenerator(num_records)
     product_gen = productGenerator(num_records)
-    
     client_data = client_gen.generate()
     product_data = product_gen.generate()
-    transaction_gen = transactionGenerator(num_records,
-                                           [client['client_id'] for client in client_data],
-                                           [product['product_id'] for product in product_data])
+    
+    # Extract client_ids and product_ids
+    client_ids = [client['client_id'] for client in client_data]
+    product_ids = [product['product_id'] for product in product_data]
+    
+    # Generate transactions
+    transaction_gen = transactionGenerator(num_records, client_ids, product_ids)
     transaction_data = transaction_gen.generate()
-    print(client_data)
+    return transaction_data
 
 if __name__ == '__main__':
-    main()
-    
+    import uvicorn
+    uvicorn.run(app, host='0.0.0.0', port=8000)

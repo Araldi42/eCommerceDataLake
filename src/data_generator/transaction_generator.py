@@ -9,15 +9,16 @@ from faker import Faker
 class transactionGenerator(Generator):
     ''''''
     def __init__(self, num_records: int, client_id: list, product_id :list) -> None:
-        self.__schema = {'client_id',
-                         'product_id',
-                         'payment_method',
-                         'quantity',
-                         'date',}
-        self.__num_records = num_records
-        self.__random_client_id = client_id
-        self.__random_product_id = product_id
-        self.fake = Faker('pt_BR')
+       self.__schema = {'transaction_id',
+                        'client_id',
+                        'product_id',
+                        'payment_method',
+                        'quantity',
+                        'date'}
+       self.__num_records = num_records
+       self.__random_client_id = client_id
+       self.__random_product_id = product_id
+       self.fake = Faker('pt_BR')
     
     def set_num_records(self, num_records : int) -> None:
         self.__num_records = num_records
@@ -27,6 +28,10 @@ class transactionGenerator(Generator):
     
     def get_num_records(self) -> int:
         return self.__num_records
+     
+    def generate_transaction_id_seeds(self, num_seeds: int) -> list:
+        '''Generate a list of client_id seeds'''
+        return [self.fake.uuid4() for _ in range(num_seeds)]
 
     def generate_random_date(self, start_date: str, end_date: str) -> datetime:
         '''Generate a random date between start_date and end_date'''
