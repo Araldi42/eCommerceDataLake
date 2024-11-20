@@ -14,7 +14,8 @@ class productGenerator(Generator):
                          'description',}
         self.__num_records = num_records
         self.fake = Faker('pt_BR')
-    
+        self.fake.seed_instance(1)
+
     def set_num_records(self, num_records : int) -> None:
         self.__num_records = num_records
 
@@ -33,13 +34,14 @@ class productGenerator(Generator):
         data = []
         seed = ['eletronics', 'clothing', 'food', 'books']
         random_product_id = self.generate_product_id_seeds(self.__num_records)
+        rnd = random.Random(1)
         for i in range(self.__num_records):
             
             record = {}
             record['product_id'] = random_product_id[i]
             record['name'] = self.fake.word() + ' ' + self.fake.word()
             record['price'] = self.fake.random_int(min=20, max=1000)
-            record['category'] = random.choice(seed)
+            record['category'] = rnd.choice(seed)
             record['quantity'] = self.fake.random_int(min=50, max=1000)
             data.append(record)
         return data

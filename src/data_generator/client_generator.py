@@ -14,6 +14,7 @@ class clientGenerator(Generator):
                         'phone_number',}
         self.__num_records = num_records
         self.fake = Faker('pt_BR')
+        self.fake.seed_instance(1)
     
     def set_num_records(self, num_records : int) -> None:
         self.__num_records = num_records
@@ -32,13 +33,13 @@ class clientGenerator(Generator):
         ''''''
         data = []
         random_client_id = self.generate_client_id_seeds(self.__num_records)
-        
+        rnd = random.Random(1)
         for i in range(self.__num_records):
             record = {}
             record['client_id'] = random_client_id[i]
             record['name'] = self.fake.name()
             record['age'] = self.fake.random_int(min=18, max=70)
-            record['gender'] = random.choice(['M', 'F'])
+            record['gender'] = rnd.choice(['M', 'F'])
             record['address'] = self.fake.address()
             record['email'] = self.fake.email()
             record['phone_number'] = self.fake.phone_number()
