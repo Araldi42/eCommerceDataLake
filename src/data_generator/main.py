@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from fastapi import FastAPI, HTTPException
 from transaction_generator import transactionGenerator
 from client_generator import clientGenerator
@@ -8,7 +9,7 @@ import asyncio
 import logging
 
 CURRENT_PATH = os.path.dirname(__file__)
-logging.basicConfig(filename=f"{CURRENT_PATH}/../logs/errors.log", level=logging.ERROR)
+logging.basicConfig(filename=os.path.join(CURRENT_PATH, '..', 'log', f'data_generator_{datetime.now()}.log'), level=logging.ERROR)
 
 app = FastAPI()
 
@@ -57,4 +58,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-

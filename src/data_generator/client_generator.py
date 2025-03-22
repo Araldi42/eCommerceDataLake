@@ -45,5 +45,3 @@ class clientGenerator(Generator):
             record['phone_number'] = self.fake.phone_number()
             data.append(record)
         return data
-
-    

@@ -50,12 +50,11 @@ class transactionGenerator(Generator):
         rnd = random.Random(1)
         for _ in range(self.__num_records):
             record = {}
+            record['transaction_id'] = self.generate_transaction_id_seeds(self.__num_records)
             record['client_id'] = rnd.choice(self.__random_client_id)
             record['product_id'] = rnd.choice(self.__random_product_id)
-            record['paymeny_method'] = rnd.choice(['credit_card', 'debit_card', 'pix'])
+            record['payment_method'] = rnd.choice(['credit_card', 'debit_card', 'pix'])
             record['quantity'] = self.fake.random_int(min=1, max=5)
             record['date'] = self.generate_random_date('2023-01-01 00:00', datetime.now().strftime('%Y-%m-%d %H:%M'))
             data.append(record)
         return data
-
-    
